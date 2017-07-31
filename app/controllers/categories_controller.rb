@@ -1,7 +1,10 @@
-class CategoriesController < Sinatra::Base
+class CategoriesController < ApiController
+#class CategoriesController < Sinatra::Base
 
   get '/' do
     @categories = Category.all
+    #headers "Content-Type" =>"applictaion/json"
+    { data: @categories }.to_json
   end
 
   post '/' do
@@ -11,11 +14,15 @@ class CategoriesController < Sinatra::Base
       category = Category.new({ name: "#{ params['name'] }" })
       category.save!
       #successfully
-      "<h1> created </h1>"
+      { data:"successfully" }.to_json
+      #{}"<h1> created </h1>"
     rescue
-      'errors'
+      #'errors'
       # errors
+      { data: "errors" }.to_json
     end
+
+
   end
 
 end
